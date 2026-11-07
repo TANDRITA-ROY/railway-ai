@@ -1,5 +1,7 @@
 package com.railmate.controller;
+import com.railmate.dto.BookingDetailsResponse;
 import com.railmate.entity.Booking;
+import com.railmate.service.BookingDetailsService;
 import com.railmate.service.BookingService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -11,9 +13,11 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 public class BookingController {
     private final BookingService service;
+    private final BookingDetailsService bookingDetailsService;
 
-    public BookingController(BookingService service) {
+    public BookingController(BookingService service,BookingDetailsService bookingDetailsService) {
         this.service = service;
+        this.bookingDetailsService=bookingDetailsService;
     }
 
     @PostMapping
@@ -27,10 +31,14 @@ public class BookingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Booking> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(service.findById(id));
-    }
+    public ResponseEntity<BookingDetailsResponse> findById(
+            @PathVariable Long id
+    ) {
+        BookingDetailsResponse response =
+                bookingDetailsService.getBookingDetails(id);
 
+        return ResponseEntity.ok(response);
+    }
     @PutMapping("/{id}")
     public ResponseEntity<Booking> update(@PathVariable Long id, @Valid @RequestBody Booking value) {
         return ResponseEntity.ok(service.update(id, value));

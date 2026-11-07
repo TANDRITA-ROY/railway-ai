@@ -1,7 +1,7 @@
 package com.railmate.ai.config;
 
 import com.railmate.ai.service.RailwayAssistant;
-import com.railmate.tool.TrainSearchTool;
+import com.railmate.tool.*;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.service.AiServices;
 import org.springframework.context.annotation.Bean;
@@ -13,12 +13,20 @@ public class RailwayAssistantConfig {
     @Bean
     public RailwayAssistant railwayAssistant(
             OllamaChatModel ollamaChatModel,
-            TrainSearchTool trainSearchTool
+            TrainSearchTool trainSearchTool,
+            SeatAvailabilityTool seatAvailabilityTool,
+            BookingDetailsTool bookingDetailsTool,
+            UserBookingsTool userBookingsTool,
+            BookingCancellationTool bookingCancellationTool
     ) {
 
         return AiServices.builder(RailwayAssistant.class)
                 .chatModel(ollamaChatModel)
-                .tools(trainSearchTool)
+                .tools(trainSearchTool,
+                        seatAvailabilityTool,
+                        bookingDetailsTool,
+                        userBookingsTool,
+                        bookingCancellationTool)
                 .build();
     }
 }
