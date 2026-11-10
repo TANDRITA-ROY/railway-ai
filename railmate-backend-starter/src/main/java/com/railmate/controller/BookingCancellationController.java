@@ -1,7 +1,10 @@
 package com.railmate.controller;
 
 import com.railmate.dto.BookingCancellationResponse;
+import com.railmate.dto.BookingCancellationConfirmationRequest;
+import com.railmate.service.BookingCancellationConfirmationService;
 import com.railmate.service.BookingCancellationService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -9,10 +12,13 @@ import org.springframework.web.bind.annotation.*;
 public class BookingCancellationController {
 
     private final BookingCancellationService cancellationService;
+    private final BookingCancellationConfirmationService confirmationService;
 
     public BookingCancellationController(
-            BookingCancellationService cancellationService) {
+            BookingCancellationService cancellationService,
+            BookingCancellationConfirmationService confirmationService) {
         this.cancellationService = cancellationService;
+        this.confirmationService = confirmationService;
     }
 
     @PostMapping("/{bookingId}/cancellation-request")
@@ -25,14 +31,12 @@ public class BookingCancellationController {
         );
     }
 
-    @PostMapping("/{bookingId}/cancel")
+    @PostMapping("/cancel")
     public BookingCancellationResponse confirmCancellation(
-            @PathVariable Long bookingId,
-            @RequestParam Long userId,
-            @RequestParam String confirmationToken) {
+            @Valid @RequestBody BookingCancellationConfirmationRequest request) {
 
-        return cancellationService.confirmCancellation(
-                bookingId, userId, confirmationToken
+        return confirmationService.confirmCancellation(
+                request.confirmationToken()
         );
     }
 }

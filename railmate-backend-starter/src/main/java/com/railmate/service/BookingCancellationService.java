@@ -1,3 +1,4 @@
+
 package com.railmate.service;
 
 import com.railmate.dto.BookingCancellationResponse;
@@ -42,23 +43,10 @@ public class BookingCancellationService {
     }
 
     @Transactional
-    public BookingCancellationResponse confirmCancellation(
+    public BookingCancellationResponse executeCancellation(
             Long bookingId,
-            Long userId,
-            String confirmationToken
+            Long userId
     ) {
-
-        boolean confirmed = confirmationStore.consume(
-                confirmationToken,
-                bookingId,
-                userId
-        );
-
-        if (!confirmed) {
-            throw new RuntimeException(
-                    "Invalid or expired cancellation confirmation."
-            );
-        }
 
         Booking booking = bookingRepository
                 .findByIdAndUser_Id(bookingId, userId)

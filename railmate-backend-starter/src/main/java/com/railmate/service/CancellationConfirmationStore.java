@@ -1,8 +1,10 @@
+
 package com.railmate.service;
 
 import org.springframework.stereotype.Component;
 
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -28,28 +30,26 @@ public class CancellationConfirmationStore {
         return token;
     }
 
-    public boolean consume(String token, Long bookingId, Long userId) {
+    public Optional<PendingCancellation> consume(String token) {
 
-        PendingCancellation request = pending.get(token);
+        if (token == null || token.isBlank()) {
+            return Optional.empty();
+        }
+
+        PendingCancellation request = pending.remove(token);
 
         if (request == null) {
-            return false;
+            return Optional.empty();
         }
 
         if (Instant.now().isAfter(request.expiresAt())) {
-            pending.remove(token, request);
-            return false;
+            return Optional.empty();
         }
 
-        if (!request.bookingId().equals(bookingId)
-                || !request.userId().equals(userId)) {
-            return false;
-        }
-
-        return pending.remove(token, request);
+        return Optional.of(request);
     }
 
-    private record PendingCancellation(
+    public record PendingCancellation(
             Long bookingId,
             Long userId,
             Instant expiresAt
