@@ -48,6 +48,11 @@ public class Booking {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal totalFare;
 
+    @NotNull
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "seat_inventory_id", nullable = false)
+    private SeatInventory seatInventory;
+
     public Booking() {
     }
 
@@ -74,4 +79,12 @@ public class Booking {
 
     public BigDecimal getTotalFare() { return totalFare; }
     public void setTotalFare(BigDecimal totalFare) { this.totalFare = totalFare; }
+
+    public SeatInventory getSeatInventory() {
+        return seatInventory;
+    }
+
+    public void setSeatInventory(SeatInventory seatInventory) {
+        this.seatInventory = seatInventory;
+    }
 }

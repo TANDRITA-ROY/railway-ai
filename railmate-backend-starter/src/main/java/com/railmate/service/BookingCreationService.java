@@ -127,6 +127,7 @@ public class BookingCreationService {
         booking.setJourneyDate(request.journeyDate());
         booking.setStatus("CONFIRMED");
         booking.setTotalFare(totalFare);
+        booking.setSeatInventory(selectedInventory);
 
         Booking savedBooking = bookingRepository.save(booking);
 
