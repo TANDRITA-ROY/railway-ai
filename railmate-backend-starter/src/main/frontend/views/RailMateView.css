@@ -1,0 +1,99 @@
+
+/* Main dashboard */
+.railmate-dashboard {
+    min-height: 100vh;
+    background: #f4f7fb;
+    color: #17243b;
+    font-family: Inter, Arial, sans-serif;
+    padding: 24px;
+    box-sizing: border-box;
+}
+
+/* Header */
+.railmate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.railmate-brand {
+    font-size: 28px;
+    font-weight: 700;
+    color: #173b70;
+}
+
+.railmate-subtitle {
+    color: #718096;
+    margin-top: 5px;
+}
+
+/* Two-panel layout */
+.railmate-content {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* Shared panel styling */
+.railmate-panel {
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(25, 45, 75, 0.05);
+}
+
+/* Responsive layout */
+@media (max-width: 800px) {
+    .railmate-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+.railway-data {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.panel-heading h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+.panel-heading p {
+    color: #718096;
+    font-size: 14px;
+}
+
+.data-card {
+    padding: 18px;
+    border: 1px solid #e5eaf2;
+    border-radius: 12px;
+    background: #f9fbfe;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.data-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 14px rgba(25, 45, 75, 0.08);
+}
+
+.data-card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.data-card p {
+    color: #718096;
+    font-size: 13px;
+}
+
+.data-card span {
+    color: #2864b4;
+    font-size: 13px;
+    font-weight: 600;
+}

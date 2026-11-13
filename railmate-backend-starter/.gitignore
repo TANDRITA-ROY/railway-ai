@@ -1,9 +1,32 @@
+
+# Maven
 target/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# IntelliJ
 .idea/
 *.iml
+
+# macOS
 .DS_Store
+
+# Environment variables and secrets
 .env
 .env.*
 !.env.example
-node_modules/
+
+# Logs
+*.log
+
+# Local database / vector-store data
+postgres-data/
+chroma-data/
+
+# Generated frontend build output
 dist/
+
+# Vaadin generated frontend files
+src/main/frontend/generated/
