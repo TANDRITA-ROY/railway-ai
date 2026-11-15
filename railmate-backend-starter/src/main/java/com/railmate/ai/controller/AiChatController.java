@@ -2,7 +2,11 @@
 package com.railmate.ai.controller;
 
 import com.railmate.ai.service.AiChatService;
+import com.railmate.ai.service.AiChatService.AssistantChatResult;
+import com.railmate.dto.TrainSearchResponse;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class AiChatController {
@@ -19,20 +23,26 @@ public class AiChatController {
 
         String answer = aiChatService.chat(request.message());
 
-        return new ChatResponse(answer);
+        return new ChatResponse(answer, List.of());
     }
 
-    // New tool-calling endpoint
+    // Tool-calling endpoint with structured train results
     @PostMapping("/api/assistant/chat")
     public ChatResponse chatWithTools(@RequestBody ChatRequest request) {
 
-        String answer =
+        AssistantChatResult result =
                 aiChatService.chatWithTools(request.message());
 
-        return new ChatResponse(answer);
+        return new ChatResponse(
+                result.response(),
+                result.trains()
+        );
     }
 
     public record ChatRequest(String message) {}
 
-    public record ChatResponse(String response) {}
+    public record ChatResponse(
+            String response,
+            List<TrainSearchResponse> trains
+    ) {}
 }

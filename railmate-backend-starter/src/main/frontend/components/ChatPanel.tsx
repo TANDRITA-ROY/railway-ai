@@ -2,19 +2,47 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 
+interface TrainSearchResult {
+    trainId: number;
+    trainNumber: string;
+    trainName: string;
+    sourceStationCode: string;
+    sourceStationName: string;
+    sourceArrivalTime: string | null;
+    sourceDepartureTime: string | null;
+    sourceDayNumber: number;
+    destinationStationCode: string;
+    destinationStationName: string;
+    destinationArrivalTime: string | null;
+    destinationDepartureTime: string | null;
+    destinationDayNumber: number;
+}
+
 interface ChatMessage {
     role: "user" | "assistant";
     content: string;
+    trains?: TrainSearchResult[];
+}
+
+interface AssistantChatResponse {
+    response: string;
+    trains?: TrainSearchResult[];
+}
+
+function formatTime(time: string | null): string {
+    return time ? time.slice(0, 5) : "--:--";
 }
 
 export default function ChatPanel() {
     const [message, setMessage] = useState("");
+
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
             role: "assistant",
             content: "Hello! Welcome to RailMate. How can I help you today?"
         }
     ]);
+
     const [loading, setLoading] = useState(false);
 
     const sendMessage = async () => {
@@ -45,13 +73,14 @@ export default function ChatPanel() {
                 throw new Error(`Request failed: ${response.status}`);
             }
 
-            const data = await response.json();
+            const data: AssistantChatResponse = await response.json();
 
             setMessages((previous) => [
                 ...previous,
                 {
                     role: "assistant",
-                    content: data.response
+                    content: data.response,
+                    trains: data.trains ?? []
                 }
             ]);
 
@@ -90,6 +119,8 @@ export default function ChatPanel() {
                         </div>
 
                         <div className="message-content">
+
+                            {/* Keep normal Markdown rendering */}
                             {msg.role === "assistant" ? (
                                 <ReactMarkdown>
                                     {msg.content}
@@ -97,6 +128,86 @@ export default function ChatPanel() {
                             ) : (
                                 msg.content
                             )}
+
+                            {/* Display structured train cards */}
+                            {msg.trains && msg.trains.length > 0 && (
+                                <div className="train-cards">
+
+                                    {msg.trains.map((train) => (
+                                        <div
+                                            className="train-card"
+                                            key={train.trainId}
+                                        >
+                                            <div className="train-card-header">
+                                                <div>
+                                                    <h3>{train.trainName}</h3>
+                                                    <span className="train-number">
+                                                        Train No. {train.trainNumber}
+                                                    </span>
+                                                </div>
+
+                                                <span className="train-card-icon">
+                                                    🚆
+                                                </span>
+                                            </div>
+
+                                            <div className="train-route">
+
+                                                <div className="train-station">
+                                                    <span className="station-label">
+                                                        FROM
+                                                    </span>
+
+                                                    <strong>
+                                                        {train.sourceStationName}
+                                                    </strong>
+
+                                                    <span className="station-code">
+                                                        {train.sourceStationCode}
+                                                    </span>
+
+                                                    <span className="train-time">
+                                                        {formatTime(train.sourceDepartureTime)}
+                                                    </span>
+
+                                                    <span className="train-day">
+                                                        Day {train.sourceDayNumber}
+                                                    </span>
+                                                </div>
+
+                                                <div className="train-route-line">
+                                                    <span>→</span>
+                                                </div>
+
+                                                <div className="train-station">
+                                                    <span className="station-label">
+                                                        TO
+                                                    </span>
+
+                                                    <strong>
+                                                        {train.destinationStationName}
+                                                    </strong>
+
+                                                    <span className="station-code">
+                                                        {train.destinationStationCode}
+                                                    </span>
+
+                                                    <span className="train-time">
+                                                        {formatTime(train.destinationArrivalTime)}
+                                                    </span>
+
+                                                    <span className="train-day">
+                                                        Day {train.destinationDayNumber}
+                                                    </span>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                </div>
+                            )}
+
                         </div>
                     </div>
                 ))}

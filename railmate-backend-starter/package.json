@@ -118,7 +118,7 @@
       "vite": "8.3.5",
       "vite-plugin-checker": "0.14.5"
     },
-    "hash": "ba447656005e6860830c0c63d3d19d6dab3db64c38f2b30d2343af88a30dc84e"
+    "hash": "5670cf598e020cba938cb2adde09b8d93982ce9ae68976ab567e706b8059434d"
   },
   "overrides": {
     "@vaadin/a11y-base": "25.3.5",
@@ -203,6 +203,7 @@
     "lit": "$lit",
     "react": "$react",
     "react-dom": "$react-dom",
+    "react-markdown": "$react-markdown",
     "react-router": "$react-router"
   }
 }
