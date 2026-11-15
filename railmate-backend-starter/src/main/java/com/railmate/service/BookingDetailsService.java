@@ -80,4 +80,13 @@ public class BookingDetailsService {
                 passengers
         );
     }
+
+    @Transactional(readOnly = true)
+    public List<BookingDetailsResponse> getAllBookingDetails() {
+        return bookingRepository.findAll()
+                .stream()
+                .map(booking -> getBookingDetails(booking.getId()))
+                .toList();
+    }
+
 }

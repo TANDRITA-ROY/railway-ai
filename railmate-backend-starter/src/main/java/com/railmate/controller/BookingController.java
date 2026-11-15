@@ -26,8 +26,10 @@ public class BookingController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Booking>> findAll() {
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<List<BookingDetailsResponse>> findAll() {
+        return ResponseEntity.ok(
+                bookingDetailsService.getAllBookingDetails()
+        );
     }
 
     @GetMapping("/{id}")

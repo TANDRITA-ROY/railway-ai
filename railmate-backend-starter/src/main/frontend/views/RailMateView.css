@@ -97,3 +97,333 @@
     font-size: 13px;
     font-weight: 600;
 }
+
+
+.train-count {
+    font-weight: 600;
+    color: #2864b4 !important;
+}
+
+.train-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.train-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 10px;
+}
+
+.train-item strong {
+    font-size: 14px;
+    color: #17243b;
+}
+
+.train-item p {
+    margin: 5px 0 0;
+    font-size: 12px;
+}
+
+.status-active,
+.status-inactive {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-active {
+    color: #16834a;
+}
+
+.status-inactive {
+    color: #c04444;
+}
+
+.error-message {
+    color: #c04444 !important;
+}
+
+
+.booking-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.booking-item {
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 10px;
+}
+
+.booking-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #e5eaf2;
+}
+
+.booking-header strong {
+    color: #173b70;
+    font-size: 14px;
+}
+
+.booking-header p,
+.booking-train p {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #718096;
+}
+
+.booking-train {
+    padding: 12px 0;
+}
+
+.booking-train strong {
+    font-size: 13px;
+    color: #17243b;
+}
+
+.booking-meta {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 10px 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2864b4;
+}
+
+.passenger-section {
+    padding-top: 12px;
+    border-top: 1px solid #e5eaf2;
+}
+
+.passenger-section > strong {
+    font-size: 13px;
+}
+
+.passenger-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    padding-top: 9px;
+    font-size: 12px;
+    color: #718096;
+}
+
+
+.inventory-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+}
+
+.inventory-item {
+    padding: 16px;
+    background: #ffffff;
+    border: 1px solid #e5eaf2;
+    border-radius: 10px;
+}
+
+.inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.inventory-header strong {
+    font-size: 13px;
+    color: #173b70;
+}
+
+.coach-badge {
+    padding: 5px 9px;
+    background: #edf4ff;
+    color: #2864b4;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.inventory-item > p {
+    margin: 8px 0;
+    font-size: 12px;
+    color: #718096;
+}
+
+.inventory-meta,
+.inventory-footer {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding-top: 10px;
+    font-size: 12px;
+}
+
+.inventory-meta {
+    color: #718096;
+}
+
+.inventory-footer {
+    margin-top: 10px;
+    border-top: 1px solid #e5eaf2;
+}
+
+.inventory-footer strong {
+    color: #173b70;
+}
+
+
+/* AI Chat Assistant */
+
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    min-height: 500px;
+}
+
+.chat-heading {
+    margin-bottom: 20px;
+}
+
+.chat-heading h2 {
+    margin-top: 0;
+}
+
+.chat-heading p {
+    color: #64748b;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 8px;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.chat-message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.chat-message.user {
+    align-self: flex-end;
+    background: #e8f0ff;
+    color: #1e3a8a;
+}
+
+.chat-message.assistant {
+    align-self: flex-start;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+.message-label {
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: #64748b;
+}
+
+.message-content {
+    font-size: 14px;
+    white-space: pre-wrap;
+}
+
+.typing {
+    color: #64748b;
+    font-style: italic;
+}
+
+.chat-input-area {
+    display: flex;
+    gap: 10px;
+    padding-top: 16px;
+}
+
+.chat-input-area input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    font-size: 14px;
+    outline: none;
+}
+
+.chat-input-area input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.chat-input-area button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.chat-input-area button:disabled {
+    background: #94a3b8;
+    cursor: not-allowed;
+}
+
+
+.message-content p {
+    margin: 4px 0;
+}
+
+.message-content strong {
+    color: #1e40af;
+    font-weight: 700;
+}
+
+.message-content ul,
+.message-content ol {
+    padding-left: 22px;
+    margin: 8px 0;
+}
+
+.message-content li {
+    margin-bottom: 5px;
+}
+
+.message-content h1,
+.message-content h2,
+.message-content h3 {
+    margin: 10px 0 6px;
+    font-size: 15px;
+}
+
+.message-content p:last-child {
+    margin-bottom: 0;
+}
