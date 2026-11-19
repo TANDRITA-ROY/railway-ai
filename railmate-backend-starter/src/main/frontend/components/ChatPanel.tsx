@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 
 interface TrainSearchResult {
@@ -99,6 +99,27 @@ export default function ChatPanel() {
         }
     };
 
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!loading) {
+            inputRef.current?.focus();
+        }
+    }, [loading]);
+
+    const chatMessagesRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const container = chatMessagesRef.current;
+
+        if (container) {
+            container.scrollTo({
+                top: container.scrollHeight,
+                behavior: "smooth"
+            });
+        }
+    }, [messages, loading]);
+
     return (
         <div className="chat-container">
 
@@ -107,7 +128,7 @@ export default function ChatPanel() {
                 <p>Ask me about trains, seat availability and bookings.</p>
             </div>
 
-            <div className="chat-messages">
+            <div className="chat-messages" ref={chatMessagesRef}>
 
                 {messages.map((msg, index) => (
                     <div
@@ -221,10 +242,12 @@ export default function ChatPanel() {
                     </div>
                 )}
 
+
             </div>
 
             <div className="chat-input-area">
                 <input
+                    ref={inputRef}
                     type="text"
                     placeholder="Ask RailMate anything..."
                     value={message}
