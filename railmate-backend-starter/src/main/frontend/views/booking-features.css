@@ -1,0 +1,85 @@
+/* Add this import to the bottom of RailMateView.tsx:
+   import "./booking-features.css";
+   The existing RailMateView.css remains untouched. */
+
+.feature-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.feature-nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.feature-nav button, .secondary-button, .primary-button, .danger-button, .text-button {
+    border: 0; border-radius: 9px; padding: 10px 15px; font-weight: 600; cursor: pointer;
+}
+.feature-nav button { background: #e8eef7; color: #25466f; }
+.feature-nav button.active, .primary-button { background: #2563eb; color: #fff; }
+.primary-button:hover { background: #1d4ed8; }
+.secondary-button { background: #eaf0f8; color: #24466e; }
+.danger-button { background: #c0392b; color: #fff; }
+.danger-text { color: #c0392b !important; }
+.text-button { background: transparent; padding: 4px; }
+button:disabled { opacity: .6; cursor: not-allowed; }
+
+.feature-main { flex: 1; min-height: 0; overflow-y: auto; }
+.feature-page { max-width: 1100px; margin: 0 auto; padding: 8px 4px 28px; }
+.feature-page-heading, .booking-card-heading, .ticket-topline {
+    display: flex; justify-content: space-between; align-items: center; gap: 16px;
+}
+.feature-page-heading { margin-bottom: 18px; }
+.feature-page-heading h1 { margin: 2px 0 6px; color: #173b70; }
+.feature-page-heading p { margin: 0; color: #718096; }
+.eyebrow { color: #64748b; font-size: 11px; font-weight: 800; letter-spacing: 1px; margin: 0 0 5px; }
+.feature-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 22px; box-shadow: 0 3px 12px rgba(15,35,65,.04); }
+.feature-card h2 { margin: 0 0 16px; color: #173b70; }
+.feature-card h3 { margin: 18px 0 10px; color: #243b5a; }
+.feature-form-grid, .feature-details-grid {
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px;
+}
+.feature-form-grid label, .passenger-form-card label {
+    display: flex; flex-direction: column; gap: 6px; color: #475569; font-size: 13px; font-weight: 600;
+}
+.feature-form-grid input, .feature-form-grid select, .passenger-form-card input, .passenger-form-card select {
+    min-width: 0; width: 100%; box-sizing: border-box; padding: 11px 12px;
+    border: 1px solid #cbd5e1; border-radius: 8px; background: #fff; color: #172b4d;
+}
+.passenger-section-title { margin-top: 24px !important; }
+.passenger-form-list { display: flex; flex-direction: column; gap: 12px; }
+.passenger-form-card { border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+.passenger-form-heading { display: flex; justify-content: space-between; align-items: center; }
+.passenger-fields-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.feature-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.feature-error { padding: 12px 14px; margin: 12px 0; border-radius: 8px; background: #fff0f0; color: #b42318; }
+.feature-note { padding: 11px 13px; background: #eff6ff; border-radius: 8px; color: #1e40af; }
+.feature-warning { color: #9a3412; background: #fff7ed; padding: 12px; border-radius: 8px; }
+.feature-details-grid { margin: 14px 0 20px; }
+.feature-details-grid > div { display: flex; flex-direction: column; gap: 5px; padding: 12px; background: #f8fafc; border-radius: 8px; min-width: 0; }
+.feature-details-grid small { color: #64748b; }
+.feature-details-grid strong { color: #243b5a; overflow-wrap: anywhere; }
+.review-passenger-list { padding-left: 20px; color: #475569; }
+.my-bookings-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.my-booking-card h2 { margin: 0 0 8px; color: #173b70; }
+.my-booking-card p { color: #64748b; font-size: 13px; }
+.booking-card-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px; padding: 12px 0; border-top: 1px solid #e2e8f0; color: #475569; font-size: 12px; }
+.feature-status { display: inline-block; background: #e7f8ee; color: #167344; border-radius: 30px; padding: 6px 10px; font-size: 11px; font-weight: 700; }
+.feature-status.cancelled { background: #feecec; color: #b42318; }
+.cancellation-panel { margin-top: 14px; padding-top: 12px; border-top: 1px solid #e2e8f0; }
+.pnr-block { background: #f1f6ff; border: 1px dashed #9bb9e8; padding: 16px; border-radius: 10px; display: flex; flex-direction: column; gap: 5px; margin: 14px 0; }
+.pnr-block span { font-size: 11px; letter-spacing: 1px; color: #64748b; font-weight: 700; }
+.pnr-block strong { font-size: 25px; letter-spacing: 2px; color: #173b70; }
+.ticket-route { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; padding: 16px 0; }
+.ticket-route > div { display: flex; flex-direction: column; gap: 5px; }
+.ticket-route span { color: #2563eb; font-weight: 700; }
+.ticket-route strong { color: #243b5a; }
+.ticket-arrow { font-size: 22px; }
+.feature-table { border-top: 1px solid #e2e8f0; }
+.feature-table-row { display: flex; justify-content: space-between; gap: 12px; padding: 11px 4px; border-bottom: 1px solid #e2e8f0; color: #475569; font-size: 13px; }
+.feature-table-row strong { color: #173b70; }
+@media (max-width: 650px) {
+    .railmate-dashboard { padding: 14px; }
+    .feature-form-grid, .feature-details-grid { grid-template-columns: 1fr; }
+    .feature-card { padding: 16px; }
+    .feature-page-heading { align-items: flex-start; flex-direction: column; }
+}

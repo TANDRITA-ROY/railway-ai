@@ -13,10 +13,6 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<Map<String, Object>> notFound(ResourceNotFoundException ex) {
-        return response(HttpStatus.NOT_FOUND, ex.getMessage());
-    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, Object>> validation(MethodArgumentNotValidException ex) {
@@ -41,6 +37,28 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Map<String, Object>> badRequest(HttpMessageNotReadableException ex) {
         return response(HttpStatus.BAD_REQUEST, "Request JSON is invalid or contains an unsupported value.");
+    }
+
+    @ExceptionHandler(SeatsUnavailableException.class)
+    public ResponseEntity<Map<String, String>> handleSeatsUnavailable(
+            SeatsUnavailableException ex) {
+
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(Map.of(
+                        "error", "SEATS_UNAVAILABLE",
+                        "message", ex.getMessage()
+                ));
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<Map<String, String>> handleResourceNotFound(
+            ResourceNotFoundException ex) {
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of(
+                        "error", "INVENTORY_NOT_FOUND",
+                        "message", ex.getMessage()
+                ));
     }
 
     private ResponseEntity<Map<String, Object>> response(HttpStatus status, String message) {
