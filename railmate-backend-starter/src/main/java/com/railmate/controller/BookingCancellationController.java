@@ -1,5 +1,6 @@
 package com.railmate.controller;
 
+import com.railmate.dto.BookingCancellationPreparationResponse;
 import com.railmate.dto.BookingCancellationResponse;
 import com.railmate.dto.BookingCancellationConfirmationRequest;
 import com.railmate.service.BookingCancellationConfirmationService;
@@ -22,13 +23,11 @@ public class BookingCancellationController {
     }
 
     @PostMapping("/{bookingId}/cancellation-request")
-    public String requestCancellation(
+    public BookingCancellationPreparationResponse requestCancellation(
             @PathVariable Long bookingId,
-            @RequestParam Long userId) {
-
-        return cancellationService.requestCancellation(
-                bookingId, userId
-        );
+            @RequestParam Long userId
+    ) {
+        return cancellationService.requestCancellation(bookingId, userId);
     }
 
     @PostMapping("/cancel")

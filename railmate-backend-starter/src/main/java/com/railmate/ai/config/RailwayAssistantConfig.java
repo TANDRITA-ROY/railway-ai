@@ -18,7 +18,7 @@ public class RailwayAssistantConfig {
             BookingDetailsTool bookingDetailsTool,
             UserBookingsTool userBookingsTool,
             BookingCancellationTool bookingCancellationTool,
-            BookingConfirmationTool bookingConfirmationTool
+            BookingPreparationTool bookingPreparationTool
     ) {
 
         return AiServices.builder(RailwayAssistant.class)
@@ -28,7 +28,7 @@ public class RailwayAssistantConfig {
                         bookingDetailsTool,
                         userBookingsTool,
                         bookingCancellationTool,
-                        bookingConfirmationTool)
+                        bookingPreparationTool)
                 .build();
     }
 }

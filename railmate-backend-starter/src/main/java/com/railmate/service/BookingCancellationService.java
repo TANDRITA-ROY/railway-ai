@@ -1,6 +1,7 @@
 
 package com.railmate.service;
 
+import com.railmate.dto.BookingCancellationPreparationResponse;
 import com.railmate.dto.BookingCancellationResponse;
 import com.railmate.entity.Booking;
 import com.railmate.entity.Ticket;
@@ -35,9 +36,12 @@ public class BookingCancellationService {
         this.confirmationStore = confirmationStore;
     }
 
-    @Transactional(readOnly = true)
-    public String requestCancellation(Long bookingId, Long userId) {
 
+    @Transactional(readOnly = true)
+    public BookingCancellationPreparationResponse requestCancellation(
+            Long bookingId,
+            Long userId
+    ) {
         Booking booking = bookingRepository
                 .findByIdAndUser_Id(bookingId, userId)
                 .orElseThrow(() ->
@@ -48,7 +52,19 @@ public class BookingCancellationService {
             throw new RuntimeException("This booking is already cancelled.");
         }
 
-        return confirmationStore.create(bookingId, userId);
+        Ticket ticket = ticketRepository.findByBooking_Id(bookingId)
+                .orElseThrow(() ->
+                        new RuntimeException("Ticket not found for this booking.")
+                );
+
+        String token = confirmationStore.create(bookingId, userId);
+
+        return new BookingCancellationPreparationResponse(
+                token,
+                booking.getId(),
+                ticket.getPnr(),
+                "Cancellation prepared. Please review and explicitly confirm."
+        );
     }
 
     @Transactional

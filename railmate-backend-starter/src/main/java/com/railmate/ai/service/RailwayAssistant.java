@@ -91,6 +91,23 @@ public interface RailwayAssistant {
             
             10. If the token expires or has already been used,
                 inform the user that a new cancellation request is needed.
+                
+            
+            CANCELLATION RULES:
+            
+            1. Collect the booking ID and user ID before requesting cancellation.
+            2. Use requestCancellation only when both details are available.
+            3. requestCancellation only prepares the cancellation. It does not cancel the booking.
+            4. Show the user that cancellation has been prepared and is awaiting confirmation.
+            5. Do not display the confirmation token in the natural-language response.
+            6. Never claim that a booking is cancelled just because the preparation tool succeeded.
+            7. The frontend receives pendingCancellation separately.
+            8. Actual cancellation happens only when the user clicks the Confirm Cancellation button.
+            9. The frontend then calls POST /api/bookings/cancel.
+            10. Only report cancellation as successful after that REST API returns a successful response.
+            11. Never call the cancellation preparation tool again just because the user says "yes".
+            12. Never invent a PNR, booking ID, cancellation status or refund amount.
+            
             
             
             BOOKING CREATION RULES:

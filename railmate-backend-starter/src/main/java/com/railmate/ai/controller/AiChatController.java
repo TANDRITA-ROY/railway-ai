@@ -3,6 +3,8 @@ package com.railmate.ai.controller;
 
 import com.railmate.ai.service.AiChatService;
 import com.railmate.ai.service.AiChatService.AssistantChatResult;
+import com.railmate.dto.BookingCancellationPreparationResponse;
+import com.railmate.dto.BookingPreparationResponse;
 import com.railmate.dto.TrainSearchResponse;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,16 +19,18 @@ public class AiChatController {
         this.aiChatService = aiChatService;
     }
 
-    // Existing direct AI endpoint
     @PostMapping("/api/ai/chat")
     public ChatResponse chat(@RequestBody ChatRequest request) {
-
         String answer = aiChatService.chat(request.message());
 
-        return new ChatResponse(answer, List.of());
+        return new ChatResponse(
+                answer,
+                List.of(),
+                null,
+                null
+        );
     }
 
-    // Tool-calling endpoint with structured train results
     @PostMapping("/api/assistant/chat")
     public ChatResponse chatWithTools(@RequestBody ChatRequest request) {
 
@@ -35,7 +39,9 @@ public class AiChatController {
 
         return new ChatResponse(
                 result.response(),
-                result.trains()
+                result.trains(),
+                result.pendingBooking(),
+                result.pendingCancellation()
         );
     }
 
@@ -43,6 +49,8 @@ public class AiChatController {
 
     public record ChatResponse(
             String response,
-            List<TrainSearchResponse> trains
+            List<TrainSearchResponse> trains,
+            BookingPreparationResponse pendingBooking,
+            BookingCancellationPreparationResponse pendingCancellation
     ) {}
 }
