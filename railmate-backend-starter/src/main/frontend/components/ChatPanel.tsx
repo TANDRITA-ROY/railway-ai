@@ -114,6 +114,9 @@ function formatCurrency(amount: number): string {
 }
 
 export default function ChatPanel() {
+    const [conversationId] = useState(
+        () => crypto.randomUUID()
+    );
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState<ChatMessage[]>([
         {
@@ -221,7 +224,8 @@ export default function ChatPanel() {
             const response = await fetch("/api/assistant/chat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ message: userMessage })
+                body: JSON.stringify({ message: userMessage,
+                    conversationId })
             });
 
             if (!response.ok) {

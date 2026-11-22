@@ -38,10 +38,10 @@ public class AiChatService {
     }
 
     // Chat with LangChain4j tool calling
-    public AssistantChatResult chatWithTools(String message) {
+    public AssistantChatResult chatWithTools(String message, String conversationId) {
 
         try {
-            String answer = railwayAssistant.chat(message);
+            String answer = railwayAssistant.chat(conversationId, message);
 
             List<TrainSearchResponse> trains =
                     trainResultContext.getResults();

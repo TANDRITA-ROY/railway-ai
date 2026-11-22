@@ -13,19 +13,28 @@ export default function CancellationDialog({ bookingId, pnr, onCancelled }: Prop
     const [error, setError] = useState("");
     const [message, setMessage] = useState("");
 
+
     async function prepare() {
         setLoading(true);
         setError("");
+
         try {
-            const confirmationToken = await requestCancellation(bookingId);
-            setToken(confirmationToken.trim().replace(/^"|"$/g, ""));
-            setMessage("Cancellation request prepared. No cancellation has happened yet.");
+            const result = await requestCancellation(bookingId);
+
+            setToken(result.confirmationToken);
+            setMessage(result.message);
+
         } catch (err) {
-            setError(err instanceof Error ? err.message : "Could not prepare cancellation.");
+            setError(
+                err instanceof Error
+                    ? err.message
+                    : "Could not prepare cancellation."
+            );
         } finally {
             setLoading(false);
         }
     }
+
 
     async function confirm() {
         if (!token) return;

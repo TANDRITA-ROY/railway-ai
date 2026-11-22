@@ -35,7 +35,8 @@ public class AiChatController {
     public ChatResponse chatWithTools(@RequestBody ChatRequest request) {
 
         AssistantChatResult result =
-                aiChatService.chatWithTools(request.message());
+                aiChatService.chatWithTools(request.message(),
+                        request.conversationId());
 
         return new ChatResponse(
                 result.response(),
@@ -45,7 +46,10 @@ public class AiChatController {
         );
     }
 
-    public record ChatRequest(String message) {}
+    public record ChatRequest(
+            String message,
+            String conversationId
+    ) {}
 
     public record ChatResponse(
             String response,

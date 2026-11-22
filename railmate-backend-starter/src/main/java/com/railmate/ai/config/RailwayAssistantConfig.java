@@ -1,6 +1,7 @@
 package com.railmate.ai.config;
 
 import com.railmate.ai.service.RailwayAssistant;
+import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import com.railmate.tool.*;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.service.AiServices;
@@ -23,6 +24,12 @@ public class RailwayAssistantConfig {
 
         return AiServices.builder(RailwayAssistant.class)
                 .chatModel(ollamaChatModel)
+                .chatMemoryProvider(memoryId ->
+                        MessageWindowChatMemory.builder()
+                                .id(memoryId)
+                                .maxMessages(20)
+                                .build()
+                )
                 .tools(trainSearchTool,
                         seatAvailabilityTool,
                         bookingDetailsTool,
