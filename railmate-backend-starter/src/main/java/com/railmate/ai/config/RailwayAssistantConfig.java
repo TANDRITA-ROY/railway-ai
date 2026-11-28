@@ -2,11 +2,11 @@ package com.railmate.ai.config;
 
 import com.railmate.ai.service.RailwayAssistant;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import com.railmate.tool.*;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.service.AiServices;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import dev.langchain4j.mcp.McpToolProvider;
 
 @Configuration
 public class RailwayAssistantConfig {
@@ -14,12 +14,7 @@ public class RailwayAssistantConfig {
     @Bean
     public RailwayAssistant railwayAssistant(
             OllamaChatModel ollamaChatModel,
-            TrainSearchTool trainSearchTool,
-            SeatAvailabilityTool seatAvailabilityTool,
-            BookingDetailsTool bookingDetailsTool,
-            UserBookingsTool userBookingsTool,
-            BookingCancellationTool bookingCancellationTool,
-            BookingPreparationTool bookingPreparationTool
+            McpToolProvider mcpToolProvider
     ) {
 
         return AiServices.builder(RailwayAssistant.class)
@@ -30,12 +25,8 @@ public class RailwayAssistantConfig {
                                 .maxMessages(20)
                                 .build()
                 )
-                .tools(trainSearchTool,
-                        seatAvailabilityTool,
-                        bookingDetailsTool,
-                        userBookingsTool,
-                        bookingCancellationTool,
-                        bookingPreparationTool)
+                // MCP tools: searchTrains and checkSeatAvailability
+                .toolProvider(mcpToolProvider)
                 .build();
     }
 }

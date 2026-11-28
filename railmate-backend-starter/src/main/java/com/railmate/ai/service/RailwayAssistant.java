@@ -4,6 +4,7 @@ package com.railmate.ai.service;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
+import dev.langchain4j.service.Result;
 
 public interface RailwayAssistant {
 
@@ -167,7 +168,7 @@ public interface RailwayAssistant {
             20. Never invent booking details, passenger details,
                 fares, availability or confirmation tokens.
             """)
-    String chat(
+    Result<String> chat(
             @MemoryId String conversationId,
             @UserMessage String userMessage
     );
