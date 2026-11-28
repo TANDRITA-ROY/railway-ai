@@ -39,4 +39,77 @@ public class RailmateBackendClient {
 
         return result != null ? result : List.of();
     }
+
+
+    public List<Map<String, Object>> checkSeatAvailability(
+            String trainNumber,
+            String source,
+            String destination,
+            String journeyDate,
+            String coachType
+    ) {
+
+        List<Map<String, Object>> result = restClient.get()
+                .uri(uriBuilder -> uriBuilder
+                        .path("/api/seats/availability")
+                        .queryParam("trainNumber", trainNumber)
+                        .queryParam("source", source)
+                        .queryParam("destination", destination)
+                        .queryParam("journeyDate", journeyDate)
+                        .queryParam("coachType", coachType)
+                        .build())
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+
+        return result != null ? result : List.of();
+    }
+
+
+    public Map<String, Object> getBookingDetails(Long bookingId) {
+
+        Map<String, Object> result = restClient.get()
+                .uri("/api/bookings/{id}", bookingId)
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+
+        return result;
+    }
+
+
+    public List<Map<String, Object>> getUserBookings(Long userId) {
+
+        List<Map<String, Object>> result = restClient.get()
+                .uri("/api/users/{userId}/bookings", userId)
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<Map<String, Object>>>() {});
+
+        return result != null ? result : List.of();
+    }
+
+    public Map<String, Object> prepareBooking(Map<String, Object> request) {
+
+        Map<String, Object> result = restClient.post()
+                .uri("/api/bookings/prepare")
+                .body(request)
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+
+        return result != null ? result : Map.of();
+    }
+
+    public Map<String, Object> requestCancellation(
+            Long bookingId,
+            Long userId
+    ) {
+        Map<String, Object> result = restClient.post()
+                .uri(
+                        "/api/bookings/{bookingId}/cancellation-request?userId={userId}",
+                        bookingId,
+                        userId
+                )
+                .retrieve()
+                .body(new ParameterizedTypeReference<Map<String, Object>>() {});
+
+        return result != null ? result : Map.of();
+    }
 }
